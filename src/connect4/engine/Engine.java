@@ -61,8 +61,8 @@ public class Engine implements GameEngine {
 			for(int j =0;j<s[0].length ;j++)
 				s[i][j] = new Score();
 		}
-		for (int i = 1; i < board.getRowsNumber()+1; i++)
-			for (int j = 1; j < board.getColumnsNumber()-1; j++) {
+		for (int i = 1; i < s.length; i++)
+			for (int j = 1; j < s[0].length - 1; j++) {
 				try {
 					if (board.get(i-1, j-1) == playerNumber) {
 						Score current = s[i][j];
@@ -92,12 +92,24 @@ public class Engine implements GameEngine {
 	public boolean isValidMove(Move m) throws InvalidColumnIndexException {
 		return !board.isFullAt(0, m.getTo()) && board.isValidColumn(m.getTo());
 	}
+	
+	public int getRowsNumber() {
+		return board.getRowsNumber();
+	}
+
+	public int getColumnsNumber() {
+		return board.getColumnsNumber();
+	}
 
 	@Override
-	public Player whosTurn() {
+	public Player getPlayerInTurn() {
 		return inTurn;
 	}
 
+	public int[][] getBoard2D() {
+		return board.get2dArray();
+	}
+	
 	public String getBoard() {
 		return board.toString();
 	}

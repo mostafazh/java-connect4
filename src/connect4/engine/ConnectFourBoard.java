@@ -1,9 +1,5 @@
 package connect4.engine;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import org.apache.log4j.Logger;
 
 public class ConnectFourBoard extends Board {
@@ -19,7 +15,7 @@ public class ConnectFourBoard extends Board {
 		columnsNumber = 7;
 		board = new int[rowsNumber][columnsNumber];
 	}
-	
+
 	public int getRowsNumber() {
 		return rowsNumber;
 	}
@@ -32,10 +28,10 @@ public class ConnectFourBoard extends Board {
 	 * Check if the specific place(row,column) is full.
 	 * 
 	 * @param row
-	 *            index of the row (zero based).
+	 *            - index of the row (zero based).
 	 * @param column
-	 *            index of the column (zero based).
-	 * @return true, if the <code>to</code> is between 0 and 6 (inclusive).
+	 *            - index of the column (zero based).
+	 * @return <code>true</code> if the <code>to</code> is between 0 and 6 (inclusive); <code>false</code> otherwise.
 	 */
 	public boolean isFullAt(int row, int column)
 			throws InvalidColumnIndexException {
@@ -46,22 +42,24 @@ public class ConnectFourBoard extends Board {
 	 * Check the validity of the given column number(index).
 	 * 
 	 * @param columnNumber
-	 *            the column index to check its validity.
-	 * @return true, if the <code>columnNumber</code> is between 0 and <code>columnsNumber</code>-1 (inclusive).
+	 *            - the column index to check its validity.
+	 * @return <code>true</code> if the <code>columnNumber</code> is between 0 and
+	 *         <code>columnsNumber</code>-1 (inclusive); <code>false</code> otherwise.
 	 */
 	public boolean isValidColumn(int columnNumber) {
-		return columnNumber >= 0 && columnNumber <= columnsNumber-1;
+		return columnNumber >= 0 && columnNumber <= columnsNumber - 1;
 	}
-	
+
 	/**
 	 * Check the validity of the given row number(index).
 	 * 
 	 * @param rowNumber
-	 *            the row index to check its validity.
-	 * @return true, if the <code>rowNumber</code> is between 0 and <code>rowsNumber</code>-1 (inclusive).
+	 *            - the row index to check its validity.
+	 * @return <code>true</code> if the <code>rowNumber</code> is between 0 and
+	 *         <code>rowsNumber</code>-1 (inclusive); <code>false</code> otherwise.
 	 */
 	public boolean isValidRow(int rowNumber) {
-		return rowNumber >= 0 && rowNumber <= rowsNumber-1;
+		return rowNumber >= 0 && rowNumber <= rowsNumber - 1;
 	}
 
 	/**
@@ -69,12 +67,12 @@ public class ConnectFourBoard extends Board {
 	 * in the board.
 	 * 
 	 * @param playerNumber
-	 *            the Player's Number (non zero)
+	 *           - the Player's Number (non zero)
 	 * @param columnNumber
-	 *            the column index to put in it.
-	 * @return false if the <code>columnNumber</code> is full, true otherwise.
+	 *           - the column index to put in it.
+	 * @return <code>true</code> if the put was successful; <code>false</code> otherwise (the <code>columnNumber</code> is full).
 	 * @throws InvalidColumnIndexException
-	 *             if the
+	 *             if the <code>columnNumber</code> is invalid.
 	 */
 	public boolean put(int playerNumber, int columnNumber)
 			throws InvalidColumnIndexException {
@@ -95,14 +93,15 @@ public class ConnectFourBoard extends Board {
 	/**
 	 * is the board full or not.
 	 * 
-	 * @return true if the board is completely full, false otherwise.
+	 * @return <code>true</code> if the board is completely full; <code>false</code> otherwise.
 	 */
 	public boolean isFull() {
 		boolean b = true;
 		for (int i = 0; i < columnsNumber; i++)
 			try {
 				b = b && isFullAt(0, i);
-			} catch (InvalidColumnIndexException e) {}
+			} catch (InvalidColumnIndexException e) {
+			}
 		return b;
 	}
 
@@ -119,29 +118,15 @@ public class ConnectFourBoard extends Board {
 		return b.toString();
 	}
 
-	public int get(int rowIndex, int columnIndex) throws InvalidColumnIndexException {
-		if(isValidColumn(columnIndex) && isValidRow(rowIndex))
+	public int get(int rowIndex, int columnIndex)
+			throws InvalidColumnIndexException {
+		if (isValidColumn(columnIndex) && isValidRow(rowIndex))
 			return board[rowIndex][columnIndex];
 		else
 			throw new InvalidColumnIndexException();
 	}
 
-	// public static void main(String[] args) throws IOException {
-	// BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	// ConnectFourBoard b = new ConnectFourBoard();
-	// while (true) {
-	// String line = br.readLine();
-	// try {
-	// b.put(1, Integer.parseInt(line));
-	// } catch (NumberFormatException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (InvalidColumnIndexException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// System.out.println(b);
-	// }
-	// }
-
+	public int[][] get2dArray() {
+		return board;
+	}
 }
