@@ -1,7 +1,5 @@
 package connect4.engine;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
-
 public class Engine implements GameEngine {
 	private static Engine e = null;
 
@@ -31,7 +29,7 @@ public class Engine implements GameEngine {
 		if (board.put(inTurn.getInt(), m.getTo())) {
 			nextTurn();
 			return true;
-		}else
+		} else
 			return false;
 	}
 
@@ -45,12 +43,49 @@ public class Engine implements GameEngine {
 
 	@Override
 	public Player isGameOver() {
-		if(board.isFull())
+		if (board.isFull())
 			return new Player(3);
-		else{
-			
+		else {
+			if (wins(p1.getInt()))
+				return p1;
+			else if (wins(p2.getInt()))
+				return p2;
 		}
 		return null;
+	}
+
+	private boolean wins(int playerNumber) {
+		// TODO Auto-generated method stub
+		Score[][] s = new Score[board.getRowsNumber()+1][board.getColumnsNumber()+2];
+		for (int i =0;i<s.length;i++) {
+			for(int j =0;j<s[0].length ;j++)
+				s[i][j] = new Score();
+		}
+		for (int i = 1; i < board.getRowsNumber()+1; i++)
+			for (int j = 1; j < board.getColumnsNumber()-1; j++) {
+				try {
+					if (board.get(i-1, j-1) == playerNumber) {
+						Score current = s[i][j];
+						Score upper = s[i-1][j];
+						Score left = s[i][j-1];
+						Score upperRight = s[i-1][j+1];
+						Score upperleft = s[i-1][j-1];
+						current.setBackslash(upperleft.getBackslash()+1);
+						current.setForslash(upperRight.getForslash()+1);
+						current.setHorizontal(left.getHorizontal()+1);
+						current.setVertical(upper.getVertical()+1);
+						if(current.getBackslash() >= 4 || current.getForslash() >= 4 ||current.getHorizontal() >= 4 || current.getVertical() >= 4 )
+							return true;
+					}
+					else{
+						s[i][j] = new Score();
+					}
+				} catch (InvalidColumnIndexException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		return false;
 	}
 
 	@Override

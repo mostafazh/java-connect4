@@ -1,15 +1,15 @@
+package connect4.main;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.log4j.Logger;
 
-import connect4.engine.ConnectFourBoard;
 import connect4.engine.Engine;
 import connect4.engine.InvalidColumnIndexException;
 import connect4.engine.Move;
 import connect4.engine.Player;
-
 
 public class Main {
 	
