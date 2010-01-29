@@ -6,5 +6,4 @@ public interface GameEngine {
 	public boolean isValidMove(Move m) throws InvalidColumnIndexException;
 	public Player getPlayerInTurn();
 	boolean put(Move m) throws InvalidColumnIndexException;
-	void nextTurn();
 }

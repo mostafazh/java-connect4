@@ -35,7 +35,10 @@ public class ConnectFourBoard extends Board {
 	 */
 	public boolean isFullAt(int row, int column)
 			throws InvalidColumnIndexException {
-		return board[row][column] != 0;
+		if(isValidColumn(column)&& isValidRow(row))
+			return board[row][column] != 0;
+		else
+			throw new InvalidColumnIndexException(); 
 	}
 
 	/**

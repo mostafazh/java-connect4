@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 
 import connect4.engine.Engine;
 import connect4.engine.Player;
+import connect4.ui.CUI;
+import connect4.ui.GUI;
 import connect4.ui.UserInterface;
 
 public class Main {

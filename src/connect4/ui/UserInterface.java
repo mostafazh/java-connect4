@@ -6,10 +6,10 @@ import connect4.engine.Player;
 
 public interface UserInterface {
 	public void setEngine(Engine e);
-	public void updateBoard();
-	public boolean put(int columnNumber) throws InvalidColumnIndexException;
-	public void gameOver(Player winner);
-	public Player whosTurn();
 	public void show();
 	public void start();
+	abstract void updateBoard();
+	abstract boolean put(int columnNumber) throws InvalidColumnIndexException;
+	abstract void gameOver(Player winner);
+	abstract Player whosTurn();
 }
