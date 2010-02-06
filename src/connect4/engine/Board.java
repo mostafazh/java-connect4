@@ -1,5 +1,5 @@
 package connect4.engine;
 
-public class Board {
+public interface Board {
 
 }

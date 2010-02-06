@@ -2,7 +2,7 @@ package connect4.engine;
 
 import org.apache.log4j.Logger;
 
-public class ConnectFourBoard extends Board {
+public class ConnectFourBoard implements Board {
 
 	int[][] board;
 	private int rowsNumber;
