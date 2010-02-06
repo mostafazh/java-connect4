@@ -1,12 +1,9 @@
 package connect4.ui;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -33,25 +30,16 @@ public class GUI2 implements KeyListener, UserInterface, MouseListener {
 		boardPanel = new JPanel(null);
 		frame = new JFrame();
 		frame.setLayout(null);
-		Disc d = new Disc(Color.BLUE, 0, 0);
-//		JLabel ll = new JLabel(d);
-//		ll.setBounds(500, 200, 20, 20);
-//		frame.getContentPane().add(ll);
 		boardPanel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	
 
 	private void initBoard() {
 		board = new JLabel[e.getRowsNumber()][e.getColumnsNumber()];
-		int blockWidth = (int) (frame.getWidth()/(e.getColumnsNumber()*1.0));
-		int blockHeight = (int) (frame.getHeight()/(e.getRowsNumber()*1.0));
 		for (int i = 0; i < board.length; i++)
 			for (int j = 0; j < board[0].length; j++) {
-				Disc d = new Disc(Color.BLUE, 0, 0);
 				board[i][j] = new JLabel();
-				board[i][j].setBounds(j * 50, i * 50, blockWidth, blockHeight);
+				board[i][j].setBounds(j * 50, i * 50, 50, 50);
 				board[i][j].setIcon(new ImageIcon("empty.png"));
 				frame.getContentPane().add(board[i][j]);
 			}
