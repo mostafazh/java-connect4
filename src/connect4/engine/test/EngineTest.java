@@ -33,7 +33,7 @@ public class EngineTest extends TestCase {
 		assertTrue(e.isGameOver().getInt() == 3);
 
 		setUp();
-		int[] p1ToWinMoves = { 0, 0, 1, 1, 2, 2, 3, 3 };
+		int[] p1ToWinMoves = { 0, 0, 1, 1, 2, 2, 3 };
 		for (int i = 0; i < p1ToWinMoves.length; i++) {
 			try {
 				e.put(new Move(p1ToWinMoves[i]));

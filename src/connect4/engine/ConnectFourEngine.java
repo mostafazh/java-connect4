@@ -86,21 +86,21 @@ public class ConnectFourEngine implements GameEngine {
 		return false;
 	}*/
 
-	private boolean wins(int playerNumber) {
+	private boolean wins() {
 		try {
-			int hCount = crawl(playerNumber, 1, 0) + crawl(playerNumber, -1, 0) - 1;
+			int hCount = crawl(1, 0) + crawl(-1, 0) - 1;
 			if (hCount == 4)
 				return true;
 			
-			int vCount = crawl(playerNumber, 0, 1) + crawl(playerNumber, 0, -1) - 1;
+			int vCount = crawl(0, 1) + crawl(0, -1) - 1;
 			if (vCount == 4)
 				return true;
 			
-			int backslashCount = crawl(playerNumber, 1, 1) + crawl(playerNumber, -1, -1) - 1;
+			int backslashCount = crawl(1, 1) + crawl(-1, -1) - 1;
 			if (backslashCount == 4)
 				return true;
 			
-			int foreslashCount = crawl(playerNumber, 1, -1) + crawl(playerNumber, -1, 1) - 1;
+			int foreslashCount = crawl(1, -1) + crawl(-1, 1) - 1;
 			if (foreslashCount == 4)
 				return true;
 		} catch (InvalidColumnIndexException e) {
@@ -110,7 +110,7 @@ public class ConnectFourEngine implements GameEngine {
 		return false;
 	}
 	
-	private int crawl(int playerNumber, int h, int v) throws InvalidColumnIndexException {
+	private int crawl(int h, int v) throws InvalidColumnIndexException {
 		int hStep = (h > 0)? 1 : (h < 0)? -1 : 0;
 		int vStep = (v > 0)? 1 : (v < 0)? -1 : 0;
 		
@@ -137,10 +137,12 @@ public class ConnectFourEngine implements GameEngine {
 		if (board.isFull())
 			return new Player(3);
 		else {
-			if (wins(p1.getInt()))
-				return p1;
-			else if (wins(p2.getInt()))
-				return p2;
+			if (wins()) {
+				if (inTurn == p1)
+					return p2;
+				else
+					return p1;
+			}
 		}
 		return null;
 	}
