@@ -2,38 +2,41 @@ package connect4.engine;
 
 import org.apache.log4j.Logger;
 
-public class Connect4Engine implements GameEngine {
-	private static Logger logger = Logger.getLogger(Connect4Engine.class.getName());
+public class ConnectFourEngine implements GameEngine {
+	private static Logger logger = Logger.getLogger(ConnectFourEngine.class.getName());
 
-	private static Connect4Engine e = null;
+	private static ConnectFourEngine e = null;
 	private ConnectFourBoard board;
 	private Player p1, p2, inTurn;
+	
+	private Move lastLegalMove;
 
-	private Connect4Engine(Player p1, Player p2) {
+	private ConnectFourEngine(Player p1, Player p2) {
 		board = new ConnectFourBoard();
 		this.p1 = p1;
 		this.p2 = p2;
 		inTurn = this.p1;
 	}
 
-	public static synchronized Connect4Engine getInstance() {
+	public static synchronized ConnectFourEngine getInstance() {
 		return e;
 	}
 
-	public static synchronized Connect4Engine initInstance(Player p1, Player p2) {
+	public static synchronized ConnectFourEngine initInstance(Player p1, Player p2) {
 		if (e == null)
-			e = new Connect4Engine(p1, p2);
+			e = new ConnectFourEngine(p1, p2);
 		return getInstance();
 	}
 
-	public static synchronized Connect4Engine reInitInstance(Player p1, Player p2) {
-		e = new Connect4Engine(p1, p2);
+	public static synchronized ConnectFourEngine reInitInstance(Player p1, Player p2) {
+		e = new ConnectFourEngine(p1, p2);
 		return e;
 	}
 
 	@Override
 	public boolean put(Move m) throws InvalidColumnIndexException {
 		if (board.put(inTurn.getInt(), m.getTo())) {
+			lastLegalMove = m;
 			nextTurn();
 			return true;
 		} else
@@ -47,6 +50,7 @@ public class Connect4Engine implements GameEngine {
 			inTurn = p1;
 	}
 
+	/*
 	private boolean wins(int playerNumber) {
 		Score[][] s = new Score[board.getRowsNumber() + 1][board
 				.getColumnsNumber() + 2];
@@ -80,8 +84,54 @@ public class Connect4Engine implements GameEngine {
 				}
 			}
 		return false;
-	}
+	}*/
 
+	private boolean wins(int playerNumber) {
+		try {
+			int hCount = crawl(playerNumber, 1, 0) + crawl(playerNumber, -1, 0) - 1;
+			if (hCount == 4)
+				return true;
+			
+			int vCount = crawl(playerNumber, 0, 1) + crawl(playerNumber, 0, -1) - 1;
+			if (vCount == 4)
+				return true;
+			
+			int backslashCount = crawl(playerNumber, 1, 1) + crawl(playerNumber, -1, -1) - 1;
+			if (backslashCount == 4)
+				return true;
+			
+			int foreslashCount = crawl(playerNumber, 1, -1) + crawl(playerNumber, -1, 1) - 1;
+			if (foreslashCount == 4)
+				return true;
+		} catch (InvalidColumnIndexException e) {
+			logger.error("InvalidColumnIndexException in Wins", e);
+		}
+		
+		return false;
+	}
+	
+	private int crawl(int playerNumber, int h, int v) throws InvalidColumnIndexException {
+		int hStep = (h > 0)? 1 : (h < 0)? -1 : 0;
+		int vStep = (v > 0)? 1 : (v < 0)? -1 : 0;
+		
+		int lastMoveColumn = lastLegalMove.getTo();
+		int row = board.getRowsNumber() - board.getColumnHeight(lastMoveColumn);
+		int col = lastMoveColumn;
+		
+		int curRow = row;
+		int curCol = col;
+		int count;
+		for (count = 0; count < 4; ++count) {
+			curRow += vStep;
+			curCol += hStep;
+			if (curRow < 0 || curRow == board.getRowsNumber() ||
+					curCol < 0 || curCol == board.getColumnsNumber() || 
+					board.get(curRow, curCol) != board.get(row, col))
+				break;
+		}
+		return 1 + count;
+	}
+	
 	@Override
 	public Player isGameOver() {
 		if (board.isFull())
