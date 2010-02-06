@@ -128,6 +128,15 @@ public class ConnectFourBoard implements Board {
 		else
 			throw new InvalidColumnIndexException();
 	}
+	
+	public int getColumnHeight(int columnIndex) {
+		int i;
+		for (i = 0; i < getRowsNumber(); ++i) {
+			if (board[i][columnIndex] != 0)
+				break;
+		}
+		return getRowsNumber() - i;
+	}
 
 	public int[][] get2dArray() {
 		return board;
