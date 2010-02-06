@@ -30,7 +30,7 @@ public class EngineTest extends TestCase {
 				fail();
 			}
 		}
-		assertTrue(e.isGameOver().getInt() == 3);
+		assertEquals(3,e.isGameOver().getInt());
 
 		setUp();
 		int[] p1ToWinMoves = { 0, 0, 1, 1, 2, 2, 3 };
@@ -41,7 +41,7 @@ public class EngineTest extends TestCase {
 				fail();
 			}
 		}
-		assertTrue(e.isGameOver().getInt() == 1);
+		assertEquals(1,e.isGameOver().getInt());
 
 		setUp();
 		int[] p2ToWinMoves = { 0, 1, 1, 2, 2, 3, 3, 4 };
@@ -52,7 +52,7 @@ public class EngineTest extends TestCase {
 				fail();
 			}
 		}
-		assertTrue(e.isGameOver().getInt() == 2);
+		assertEquals(2,e.isGameOver().getInt());
 	}
 
 	/**
