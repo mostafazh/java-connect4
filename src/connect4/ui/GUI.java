@@ -100,7 +100,6 @@ public class GUI extends AbstractUserInterface implements KeyListener, MouseList
 		try {
 			put(ee.getX() / 50);
 		} catch (InvalidColumnIndexException e1) {
-			// TODO Auto-generated method stub
 			e1.printStackTrace();
 		}
 	}
