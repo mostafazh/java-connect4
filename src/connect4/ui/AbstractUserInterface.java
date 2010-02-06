@@ -1,20 +1,20 @@
 package connect4.ui;
 
-import connect4.engine.Engine;
+import connect4.engine.Connect4Engine;
 import connect4.engine.InvalidColumnIndexException;
 import connect4.engine.Move;
 import connect4.engine.Player;
 
 public class AbstractUserInterface implements UserInterface{
 
-	private Engine e;
+	private Connect4Engine e;
 
 	@Override
-	public void setEngine(Engine e) {
+	public void setEngine(Connect4Engine e) {
 		this.e = e;
 	}
 	
-	public Engine getEngine() {
+	public Connect4Engine getEngine() {
 		return e;
 	}
 	

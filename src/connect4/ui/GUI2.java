@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import connect4.engine.Engine;
+import connect4.engine.Connect4Engine;
 import connect4.engine.InvalidColumnIndexException;
 import connect4.engine.Move;
 import connect4.engine.Player;
@@ -24,7 +24,7 @@ import connect4.engine.Player;
 public class GUI2 implements KeyListener, UserInterface, MouseListener {
 	private static Logger logger = Logger.getLogger(GUI.class.getName());
 
-	Engine e;
+	Connect4Engine e;
 	JFrame frame;
 	JLabel[][] board;
 	JPanel boardPanel;
@@ -87,7 +87,7 @@ public class GUI2 implements KeyListener, UserInterface, MouseListener {
 	}
 
 	@Override
-	public void setEngine(Engine e) {
+	public void setEngine(Connect4Engine e) {
 		this.e = e;
 	}
 

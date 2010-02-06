@@ -1,6 +1,6 @@
 package connect4.engine.test;
 
-import connect4.engine.Engine;
+import connect4.engine.Connect4Engine;
 import connect4.engine.InvalidColumnIndexException;
 import connect4.engine.Move;
 import connect4.engine.Player;
@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 public class EngineTest extends TestCase {
 
-	private Engine e;
+	private Connect4Engine e;
 	private Player p1;
 	private Player p2;
 
@@ -16,7 +16,7 @@ public class EngineTest extends TestCase {
 	protected void setUp() {
 		p1 = new Player(1);
 		p2 = new Player(2);
-		e = Engine.reInitInstance(p1, p2);
+		e = Connect4Engine.reInitInstance(p1, p2);
 	}
 
 	public void testIsGameOver() {
