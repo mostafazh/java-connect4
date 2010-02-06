@@ -2,32 +2,32 @@ package connect4.engine;
 
 import org.apache.log4j.Logger;
 
-public class Engine implements GameEngine {
-	private static Logger logger = Logger.getLogger(Engine.class.getName());
+public class Connect4Engine implements GameEngine {
+	private static Logger logger = Logger.getLogger(Connect4Engine.class.getName());
 
-	private static Engine e = null;
+	private static Connect4Engine e = null;
 	private ConnectFourBoard board;
 	private Player p1, p2, inTurn;
 
-	private Engine(Player p1, Player p2) {
+	private Connect4Engine(Player p1, Player p2) {
 		board = new ConnectFourBoard();
 		this.p1 = p1;
 		this.p2 = p2;
 		inTurn = this.p1;
 	}
 
-	public static synchronized Engine getInstance() {
+	public static synchronized Connect4Engine getInstance() {
 		return e;
 	}
 
-	public static synchronized Engine initInstance(Player p1, Player p2) {
+	public static synchronized Connect4Engine initInstance(Player p1, Player p2) {
 		if (e == null)
-			e = new Engine(p1, p2);
+			e = new Connect4Engine(p1, p2);
 		return getInstance();
 	}
 
-	public static synchronized Engine reInitInstance(Player p1, Player p2) {
-		e = new Engine(p1, p2);
+	public static synchronized Connect4Engine reInitInstance(Player p1, Player p2) {
+		e = new Connect4Engine(p1, p2);
 		return e;
 	}
 
