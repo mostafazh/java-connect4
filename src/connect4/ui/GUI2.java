@@ -17,7 +17,12 @@ import connect4.engine.Connect4Engine;
 import connect4.engine.InvalidColumnIndexException;
 import connect4.engine.Move;
 import connect4.engine.Player;
-
+/**
+ * 
+ * @author mostafa
+ *
+ *	the pictures are taken from <a href="http://www.dreamincode.net/forums/showtopic97190.htm">http://www.dreamincode.net/forums/showtopic97190.htm</a>
+ */
 public class GUI2 implements KeyListener, UserInterface, MouseListener {
 	private static Logger logger = Logger.getLogger(GUI.class.getName());
 
