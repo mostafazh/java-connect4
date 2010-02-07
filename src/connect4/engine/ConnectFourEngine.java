@@ -89,19 +89,19 @@ public class ConnectFourEngine implements GameEngine {
 	private boolean wins() {
 		try {
 			int hCount = crawl(1, 0) + crawl(-1, 0) - 1;
-			if (hCount == 4)
+			if (hCount >= 4)
 				return true;
 			
 			int vCount = crawl(0, 1) + crawl(0, -1) - 1;
-			if (vCount == 4)
+			if (vCount >= 4)
 				return true;
 			
 			int backslashCount = crawl(1, 1) + crawl(-1, -1) - 1;
-			if (backslashCount == 4)
+			if (backslashCount >= 4)
 				return true;
 			
 			int foreslashCount = crawl(1, -1) + crawl(-1, 1) - 1;
-			if (foreslashCount == 4)
+			if (foreslashCount >= 4)
 				return true;
 		} catch (InvalidColumnIndexException e) {
 			logger.error("InvalidColumnIndexException in Wins", e);
