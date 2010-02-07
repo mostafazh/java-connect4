@@ -42,6 +42,17 @@ public class EngineTest extends TestCase {
 			}
 		}
 		assertEquals(1,e.isGameOver().getInt());
+		
+		setUp();
+		int[] p1ToWinMoreThanFourMoves = { 0, 0, 1, 1, 3, 3, 4, 4, 2 };
+		for (int i = 0; i < p1ToWinMoreThanFourMoves.length; i++) {
+			try {
+				e.put(new Move(p1ToWinMoreThanFourMoves[i]));
+			} catch (InvalidColumnIndexException e1) {
+				fail();
+			}
+		}
+		assertEquals(1,e.isGameOver().getInt());
 
 		setUp();
 		int[] p2ToWinMoves = { 0, 1, 1, 2, 2, 3, 3, 4 };
