@@ -4,16 +4,23 @@ import org.apache.log4j.Logger;
 
 public class ConnectFourBoard implements Board {
 
+	private static ConnectFourBoard connect4board;
 	int[][] board;
 	private int rowsNumber;
 	private int columnsNumber;
 	private static Logger logger = Logger.getLogger(ConnectFourBoard.class
 			.getName());
 
-	public ConnectFourBoard() {
+	private ConnectFourBoard() {
 		rowsNumber = 6;
 		columnsNumber = 7;
 		board = new int[rowsNumber][columnsNumber];
+	}
+
+	public static synchronized ConnectFourBoard getInstance() {
+		if (connect4board == null)
+			connect4board = new ConnectFourBoard();
+		return connect4board;
 	}
 
 	public int getRowsNumber() {
@@ -31,14 +38,15 @@ public class ConnectFourBoard implements Board {
 	 *            - index of the row (zero based).
 	 * @param column
 	 *            - index of the column (zero based).
-	 * @return <code>true</code> if the <code>to</code> is between 0 and 6 (inclusive); <code>false</code> otherwise.
+	 * @return <code>true</code> if the <code>to</code> is between 0 and 6
+	 *         (inclusive); <code>false</code> otherwise.
 	 */
 	public boolean isFullAt(int row, int column)
 			throws InvalidColumnIndexException {
-		if(isValidColumn(column)&& isValidRow(row))
+		if (isValidColumn(column) && isValidRow(row))
 			return board[row][column] != 0;
 		else
-			throw new InvalidColumnIndexException(); 
+			throw new InvalidColumnIndexException();
 	}
 
 	/**
@@ -46,8 +54,9 @@ public class ConnectFourBoard implements Board {
 	 * 
 	 * @param columnNumber
 	 *            - the column index to check its validity.
-	 * @return <code>true</code> if the <code>columnNumber</code> is between 0 and
-	 *         <code>columnsNumber</code>-1 (inclusive); <code>false</code> otherwise.
+	 * @return <code>true</code> if the <code>columnNumber</code> is between 0
+	 *         and <code>columnsNumber</code>-1 (inclusive); <code>false</code>
+	 *         otherwise.
 	 */
 	public boolean isValidColumn(int columnNumber) {
 		return columnNumber >= 0 && columnNumber <= columnsNumber - 1;
@@ -59,7 +68,8 @@ public class ConnectFourBoard implements Board {
 	 * @param rowNumber
 	 *            - the row index to check its validity.
 	 * @return <code>true</code> if the <code>rowNumber</code> is between 0 and
-	 *         <code>rowsNumber</code>-1 (inclusive); <code>false</code> otherwise.
+	 *         <code>rowsNumber</code>-1 (inclusive); <code>false</code>
+	 *         otherwise.
 	 */
 	public boolean isValidRow(int rowNumber) {
 		return rowNumber >= 0 && rowNumber <= rowsNumber - 1;
@@ -70,10 +80,11 @@ public class ConnectFourBoard implements Board {
 	 * in the board.
 	 * 
 	 * @param playerNumber
-	 *           - the Player's Number (non zero)
+	 *            - the Player's Number (non zero)
 	 * @param columnNumber
-	 *           - the column index to put in it.
-	 * @return <code>true</code> if the put was successful; <code>false</code> otherwise (the <code>columnNumber</code> is full).
+	 *            - the column index to put in it.
+	 * @return <code>true</code> if the put was successful; <code>false</code>
+	 *         otherwise (the <code>columnNumber</code> is full).
 	 * @throws InvalidColumnIndexException
 	 *             if the <code>columnNumber</code> is invalid.
 	 */
@@ -96,7 +107,8 @@ public class ConnectFourBoard implements Board {
 	/**
 	 * is the board full or not.
 	 * 
-	 * @return <code>true</code> if the board is completely full; <code>false</code> otherwise.
+	 * @return <code>true</code> if the board is completely full;
+	 *         <code>false</code> otherwise.
 	 */
 	public boolean isFull() {
 		boolean b = true;
@@ -128,8 +140,12 @@ public class ConnectFourBoard implements Board {
 		else
 			throw new InvalidColumnIndexException();
 	}
-	
-	public int getColumnHeight(int columnIndex) {
+
+	public int getColumnHeight(int columnIndex)
+			throws InvalidColumnIndexException {
+		if (!isValidColumn(columnIndex)) {
+			throw new InvalidColumnIndexException();
+		}
 		int i;
 		for (i = 0; i < getRowsNumber(); ++i) {
 			if (board[i][columnIndex] != 0)
