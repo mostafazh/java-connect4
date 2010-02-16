@@ -12,7 +12,7 @@ public class ConnectFourEngine implements GameEngine {
 	private Move lastLegalMove;
 
 	private ConnectFourEngine(Player p1, Player p2) {
-		board = new ConnectFourBoard();
+		board = ConnectFourBoard.getInstance();
 		this.p1 = p1;
 		this.p2 = p2;
 		inTurn = this.p1;
@@ -49,43 +49,7 @@ public class ConnectFourEngine implements GameEngine {
 		else
 			inTurn = p1;
 	}
-
-	/*
-	private boolean wins(int playerNumber) {
-		Score[][] s = new Score[board.getRowsNumber() + 1][board
-				.getColumnsNumber() + 2];
-		for (int i = 0; i < s.length; i++) {
-			for (int j = 0; j < s[0].length; j++)
-				s[i][j] = new Score();
-		}
-		for (int i = 1; i < s.length; i++)
-			for (int j = 1; j < s[0].length - 1; j++) {
-				try {
-					if (board.get(i - 1, j - 1) == playerNumber) {
-						Score current = s[i][j];
-						Score upper = s[i - 1][j];
-						Score left = s[i][j - 1];
-						Score upperRight = s[i - 1][j + 1];
-						Score upperleft = s[i - 1][j - 1];
-						current.setBackslash(upperleft.getBackslash() + 1);
-						current.setForslash(upperRight.getForslash() + 1);
-						current.setHorizontal(left.getHorizontal() + 1);
-						current.setVertical(upper.getVertical() + 1);
-						if (current.getBackslash() >= 4
-								|| current.getForslash() >= 4
-								|| current.getHorizontal() >= 4
-								|| current.getVertical() >= 4)
-							return true;
-					} else {
-						s[i][j] = new Score();
-					}
-				} catch (InvalidColumnIndexException e) {
-					logger.error("InvalidColumnIndexException in Wins", e);
-				}
-			}
-		return false;
-	}*/
-
+	
 	private boolean wins() {
 		try {
 			int hCount = crawl(1, 0) + crawl(-1, 0) - 1;

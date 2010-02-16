@@ -17,14 +17,17 @@ import connect4.engine.ConnectFourEngine;
 import connect4.engine.InvalidColumnIndexException;
 import connect4.engine.Move;
 import connect4.engine.Player;
+
 /**
  * 
  * @author mostafa
- *
- *	the pictures are taken from <a href="http://www.dreamincode.net/forums/showtopic97190.htm">http://www.dreamincode.net/forums/showtopic97190.htm</a>
+ * 
+ *         the pictures are taken from <a
+ *         href="http://www.dreamincode.net/forums/showtopic97190.htm"
+ *         >here</a>
  */
 public class GUI2 implements KeyListener, UserInterface, MouseListener {
-	private static Logger logger = Logger.getLogger(GUI.class.getName());
+	private static Logger logger = Logger.getLogger(GUI2.class.getName());
 
 	ConnectFourEngine e;
 	JFrame frame;
@@ -97,7 +100,7 @@ public class GUI2 implements KeyListener, UserInterface, MouseListener {
 	public boolean put(int columnNumber) throws InvalidColumnIndexException {
 		boolean putIsDone = e.put(new Move(columnNumber));
 		System.out.println(columnNumber);
-		if(putIsDone){
+		if (putIsDone) {
 			Player p = e.isGameOver();
 			updateBoard();
 			if (p != null) {
@@ -129,27 +132,32 @@ public class GUI2 implements KeyListener, UserInterface, MouseListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {}
+	public void keyPressed(KeyEvent arg0) {
+	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+	}
 
 	@Override
 	public void mousePressed(MouseEvent ee) {
 		try {
 			put(ee.getX() / 50);
-		} catch (InvalidColumnIndexException e1) {
-			// TODO Auto-generated method stub
-			e1.printStackTrace();
+		} catch (InvalidColumnIndexException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+	}
 }

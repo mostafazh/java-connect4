@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import connect4.engine.ConnectFourEngine;
 import connect4.engine.Player;
 import connect4.ui.CUI;
-import connect4.ui.GUI;
 import connect4.ui.GUI2;
 import connect4.ui.UserInterface;
 
@@ -24,7 +23,7 @@ public class Main {
 		
 		UserInterface ui;
 		if(result == JOptionPane.OK_OPTION)
-			ui = new GUI();
+			ui = new GUI2();
 		else
 			ui = new CUI();
 		ui.setEngine(e);
